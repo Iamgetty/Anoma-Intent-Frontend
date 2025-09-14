@@ -4,8 +4,14 @@ import React, { useEffect, useState } from "react";
 // Simple token icons (replace with your own if needed)
 const tokenLogos = {
   ETH: "https://w7.pngwing.com/pngs/268/1013/png-transparent-ethereum-eth-hd-logo.png",
-  XAN: "https://static.chainbroker.io/mediafiles/projects/anoma/anoma.jpeg", // placeholder
+  XAN: "https://static.chainbroker.io/mediafiles/projects/anoma/anoma.jpeg",
 };
+
+// ✅ Reads from Vercel env variable, falls back to localhost in dev
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
+
+console.log("Frontend using BASE_URL:", BASE_URL);
+
 
 function App() {
   const [activeTab, setActiveTab] = useState("home");
@@ -24,17 +30,20 @@ function App() {
 
   // Load balances + txs + intents
   function loadData() {
-    fetch(`http://localhost:4000/api/balance?user=${user}`)
+    fetch(`${BASE_URL}/balance?user=${user}`)
       .then((res) => res.json())
-      .then((data) => setBalance(data));
+      .then((data) => setBalance(data))
+      .catch(() => setBalance(null));
 
-    fetch("http://localhost:4000/api/txs")
+    fetch(`${BASE_URL}/txs`)
       .then((res) => res.json())
-      .then((data) => setTxs(data));
+      .then((data) => setTxs(data))
+      .catch(() => setTxs([]));
 
-    fetch("http://localhost:4000/api/intents")
+    fetch(`${BASE_URL}/intents`)
       .then((res) => res.json())
-      .then((data) => setIntents(data));
+      .then((data) => setIntents(data))
+      .catch(() => setIntents([]));
   }
 
   useEffect(() => {
@@ -43,15 +52,16 @@ function App() {
 
   // Faucet
   function requestFaucet() {
-    fetch(`http://localhost:4000/api/faucet?user=${user}`)
+    fetch(`${BASE_URL}/faucet?user=${user}`)
       .then((res) => res.json())
-      .then((data) => setBalance(data));
+      .then((data) => setBalance(data))
+      .catch(() => alert("Faucet failed"));
   }
 
   // Send transaction
   function sendTx(e) {
     e.preventDefault();
-    fetch("http://localhost:4000/api/send", {
+    fetch(`${BASE_URL}/send`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ from: user, to, token, amount: Number(amount) }),
@@ -65,13 +75,14 @@ function App() {
         setBalance({ user, balances: data.senderBalance.balances });
         setTxs((prev) => [...prev, data.tx]);
         setAmount("");
-      });
+      })
+      .catch(() => alert("Transaction failed"));
   }
 
   // Create intent
   function createIntent(e) {
     e.preventDefault();
-    fetch("http://localhost:4000/api/intent", {
+    fetch(`${BASE_URL}/intent`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -90,7 +101,8 @@ function App() {
         }
         setIntents((prev) => [...prev, data.intent]);
         setIntentAmount("");
-      });
+      })
+      .catch(() => alert("Creating intent failed"));
   }
 
   // Copy user address
@@ -442,9 +454,12 @@ function App() {
                     }}
                   >
                     <span>
-                      {intent.maker} wants to swap {intent.amount} {intent.from_asset} → {intent.to_asset}
+                      {intent.maker} wants to swap {intent.amount}{" "}
+                      {intent.from_asset} → {intent.to_asset}
                     </span>
-                    <span style={{ color: "#f59e0b", fontWeight: "bold" }}>INTENT</span>
+                    <span style={{ color: "#f59e0b", fontWeight: "bold" }}>
+                      INTENT
+                    </span>
                   </li>
                 ))}
               </ul>
