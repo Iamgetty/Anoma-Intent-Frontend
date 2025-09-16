@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 // Token logos
 const tokenLogos = {
   ETH: "https://cdn.pixabay.com/photo/2021/05/24/09/15/ethereum-logo-6278329_1280.png",
-  BTC: "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=040",
-  BNB: "https://cryptologos.cc/logos/bnb-bnb-logo.png?v=040",
+  BTC: "https://static.vecteezy.com/system/resources/previews/019/767/953/non_2x/bitcoin-logo-bitcoin-icon-transparent-free-png.png",
+  BNB: "https://zengo.com/wp-content/uploads/BNB-Chain-1.png",
   SOL: "https://thumbs.dreamstime.com/b/solana-sol-token-symbol-cryptocurrency-logo-circle-coin-icon-isolated-white-background-vector-illustration-222245595.jpg",
-  TRX: "https://cryptologos.cc/logos/tron-trx-logo.png?v=040",
+  TRX: "https://zengo.com/wp-content/uploads/Tron.png",
   USDT: "https://images.seeklogo.com/logo-png/32/1/tether-usdt-logo-png_seeklogo-323175.png",
-  USDC: "https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=040",
+  USDC: "https://logotyp.us/file/usd-coin.svg",
   XAN: "https://static.chainbroker.io/mediafiles/projects/anoma/anoma.jpeg",
 };
 
