@@ -8,7 +8,7 @@ const tokenLogos = {
   SOL: "https://thumbs.dreamstime.com/b/solana-sol-token-symbol-cryptocurrency-logo-circle-coin-icon-isolated-white-background-vector-illustration-222245595.jpg",
   TRX: "https://1000logos.net/wp-content/uploads/2024/09/TRON-Emblem.png",
   USDT: "https://images.seeklogo.com/logo-png/32/1/tether-usdt-logo-png_seeklogo-323175.png",
-  USDC: "https://coin-images.coingecko.com/coins/images/51504/large/pngtree-usd-coin-usdc-digital-stablecoin-icon-technology-pay-web-vector-png-image_37843734.png?1731433997",
+  USDC: "https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=040",
   XAN: "https://static.chainbroker.io/mediafiles/projects/anoma/anoma.jpeg",
 };
 
